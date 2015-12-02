@@ -42,12 +42,12 @@ def join_parts(parts_directory):
         raise Exception("Invalid name for parts directory")
     target_name = parts_result.group(1)
     target_path = os.path.join(base_dir, target_name)
-    with open(target_path, 'w') as target:
+    with open(target_path, 'wb+') as target:
         parts_list = os.listdir(parts_directory)
         parts_list.sort(lambda x,y: cmp( int(x.split('_')[-1]), int(y.split('_')[-1])))
         for part in parts_list:
             part_path = os.path.join(parts_directory, part)
-            with open(part_path, "r") as part_handle:
+            with open(part_path, "rb+") as part_handle:
                 buf = part_handle.read(1024 * 1024 * 10)
                 while buf:
                     target.write(buf)
